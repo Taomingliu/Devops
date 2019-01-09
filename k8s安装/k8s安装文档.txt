@@ -1,0 +1,19 @@
+配置服务器环境 
+准备3台centos7机器，修改主机名master  node1  node2
+3台机器配置hosts，关闭防火墙，关闭selinux，联网
+
+
+Master运行脚本master.sh，运行结束后主机界面有类似下面这样一行：
+ kubeadm join 192.168.51.213:6443 --token 0wexnp.k9cne3pudbryptpg --discovery-token-ca-cert-hash sha256:9381842503861a79babfb8d4790e5f1a7eebaf8e7a0ed4237fd5c781d4d664d0 
+
+拷贝master主机上的这一行，替换掉node.sh脚本中的最后一行，然后在两台node主机运行脚本node.sh
+
+无报错K8S安装成功
+
+命令查看集群中的服务器
+kubectl get nodes
+
+
+
+
+

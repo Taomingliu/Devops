@@ -1,0 +1,19 @@
+master主机
+docker pull registry      #拉取私有库镜像
+docker run -itd -v /data/registry:/var/lib/registry -p 5000:5000 --restart=always --name registry registry:latest               #镜像生成容器
+
+cat /etc/docker/daemon.json     #修改文件内容为：
+{
+  "insecure-registries": [ "master:5000"]
+}
+
+docker tag 旧镜像名 master:5000/新镜像名    #复制镜像修改名称
+
+docker push master:5000/新镜像名       #推送镜像到私有库
+
+curl http://127.0.0.1:5000/v2/_catalog   #查看私有库中的镜像
+
+
+
+node节点
+docker pull master:5000/新镜像名     #拉取私有库中的镜像

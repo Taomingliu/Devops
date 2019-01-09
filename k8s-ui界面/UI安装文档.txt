@@ -1,0 +1,13 @@
+ vim kubernetes-dashboard.yaml 创建k8s ui图形界面pods文件
+ vim kubernetes-rbac.yaml   创建ui界面services文件
+ mkdir certs  
+ mv kubernetes-* certs/     文件移动到该文件夹
+ kubectl create secret generic kubernetes-dashboard-certs --from-file=certs -n kube-system
+ cd certs/
+ kubectl apply -f .      创建pod和service
+ kubectl get pods --namespace="kube-system"    查看pods
+ kubectl describe pods/kubernetes-dashboard-567fb77ccf-cpcwq --namespace="kube-system"   查看详细信息
+ nohup kubectl proxy --address=192.168.51.213 --disable-filter=true &  后天运行图形界面端口
+
+
+访问   http://192.168.51.213:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
